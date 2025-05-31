@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 function ContactForm() {
   const [name, setName] = useState("");
@@ -10,6 +18,7 @@ function ContactForm() {
     email: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     let valid = true;
@@ -35,12 +44,16 @@ function ContactForm() {
     setErrors(newErrors);
 
     if (!valid) return;
+    setLoading(true);
 
-    Alert.alert("Form submitted");
-    setName("");
-    setEmail("");
-    setMessage("");
-    setErrors({ name: "", email: "", message: "" });
+    setTimeout(() => {
+      Alert.alert("Form submitted");
+      setName("");
+      setEmail("");
+      setMessage("");
+      setErrors({ name: "", email: "", message: "" });
+      setLoading(false);
+    }, 1500);
   };
   return (
     <View style={styles.container}>
@@ -73,7 +86,13 @@ function ContactForm() {
       {errors.message ? (
         <Text style={styles.errorText}>{errors.message}</Text>
       ) : null}
-      <Button title="Submit" onPress={handleSubmit} />
+      <TouchableOpacity>
+        <Button
+          title={loading ? "Submitting..." : "Submit"}
+          onPress={handleSubmit}
+          disabled={loading}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
