@@ -1,75 +1,178 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import {
+  // FlatList,
+  SafeAreaView,
+  StyleSheet,
+  // Text,
+  // TextInput,
+  // View,
+} from "react-native";
+// import ProfileHeader from "@/components/ProfileHeader";
+import { useState } from "react";
+import ContactForm from "@/components/ContactForm";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const users = [
+  {
+    id: "1",
+    name: "Alice Johnson",
+    role: "Frontend Engineer",
+    avatarUrl: "https://i.pravatar.cc/100?img=1",
+  },
+  {
+    id: "2",
+    name: "Bob Williams",
+    role: "DevOps Specialist",
+    avatarUrl: "https://i.pravatar.cc/100?img=2",
+  },
+  {
+    id: "3",
+    name: "Clara Adams",
+    role: "Product Manager",
+    avatarUrl: "https://i.pravatar.cc/100?img=3",
+  },
+  {
+    id: "4",
+    name: "David Green",
+    role: "UX Researcher",
+    avatarUrl: "https://i.pravatar.cc/100?img=4",
+  },
+  {
+    id: "5",
+    name: "Alice Johnson",
+    role: "Frontend Engineer",
+    avatarUrl: "https://i.pravatar.cc/100?img=1",
+  },
+  {
+    id: "6",
+    name: "Bob Williams",
+    role: "DevOps Specialist",
+    avatarUrl: "https://i.pravatar.cc/100?img=2",
+  },
+  {
+    id: "7",
+    name: "Clara Adams",
+    role: "Product Manager",
+    avatarUrl: "https://i.pravatar.cc/100?img=3",
+  },
+  {
+    id: "8",
+    name: "David Green",
+    role: "UX Researcher",
+    avatarUrl: "https://i.pravatar.cc/100?img=4",
+  },
+  {
+    id: "9",
+    name: "Alice Johnson",
+    role: "Frontend Engineer",
+    avatarUrl: "https://i.pravatar.cc/100?img=1",
+  },
+  {
+    id: "10",
+    name: "Bob Williams",
+    role: "DevOps Specialist",
+    avatarUrl: "https://i.pravatar.cc/100?img=2",
+  },
+  {
+    id: "11",
+    name: "Clara Adams",
+    role: "Product Manager",
+    avatarUrl: "https://i.pravatar.cc/100?img=3",
+  },
+  {
+    id: "12",
+    name: "David Green",
+    role: "UX Researcher",
+    avatarUrl: "https://i.pravatar.cc/100?img=4",
+  },
+  {
+    id: "13",
+    name: "Alice Johnson",
+    role: "Frontend Engineer",
+    avatarUrl: "https://i.pravatar.cc/100?img=1",
+  },
+  {
+    id: "14",
+    name: "Bob Williams",
+    role: "DevOps Specialist",
+    avatarUrl: "https://i.pravatar.cc/100?img=2",
+  },
+  {
+    id: "15",
+    name: "Clara Adams",
+    role: "Product Manager",
+    avatarUrl: "https://i.pravatar.cc/100?img=3",
+  },
+  {
+    id: "16",
+    name: "David Green",
+    role: "UX Researcher",
+    avatarUrl: "https://i.pravatar.cc/100?img=4",
+  },
+];
 
 export default function HomeScreen() {
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const filteredUsers = users.filter((user) =>
+  //   user.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView style={styles.container}>
+      {/* <TextInput
+        placeholder="Search"
+        value={searchQuery}
+        onChangeText={(text) => setSearchQuery(text)}
+        style={styles.searchInput}
+      />
+
+      <FlatList
+        data={filteredUsers}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ProfileHeader
+            avatarUrl={item.avatarUrl}
+            name={item.name}
+            role={item.role}
+            buttonLabel="Follow"
+            buttonColor="#1E90FF"
+            onButtonPress={() => alert(`Connected with ${item.name}`)}
+          />
+        )}
+        ListHeaderComponent={() => (
+          <Text style={styles.listHeader}>Follow Requests</Text>
+        )}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      /> */}
+      <ContactForm />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "white",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  // listHeader: {
+  //   fontSize: 24,
+  //   fontWeight: "bold",
+  //   // marginVertical: 5,
+  //   paddingVertical: 16,
+  //   textAlign: "left",
+  //   paddingLeft: 12,
+  //   backgroundColor: "wheat",
+  // },
+  // separator: {
+  //   height: 1,
+  //   backgroundColor: "e0e0e0",
+  //   marginHorizontal: 16,
+  // },
+  // searchInput: {
+  //   borderWidth: 1,
+  //   borderColor: "#ccc",
+  //   borderRadius: 8,
+  //   padding: 10,
+  //   marginHorizontal: 16,
+  //   marginTop: 16,
+  //   marginBottom: 8,
+  //   color: "white",
+  // },
 });
